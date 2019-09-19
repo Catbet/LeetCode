@@ -1,6 +1,8 @@
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        if len(nums) != 0:
+        if len(nums) <= 1:
+            return len(nums)
+        else:           
             digit = nums[0]
             save = 1
             for i in range(1,len(nums)):
