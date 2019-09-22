@@ -1,0 +1,7 @@
+class Solution:
+    # @param n, an integer
+    # @return an integer
+    def reverseBits(self, n):
+        str = bin(n)
+        str = '0'*(32-len(str)+2)+str[2:]
+        return int(str[::-1],2)
