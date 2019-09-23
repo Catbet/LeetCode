@@ -1,0 +1,18 @@
+class Solution(object):
+    def countPrimes(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        count = 0
+        if ( n >= 3 ):
+            l = [True]*n
+            for i in range(2,int(n**0.5)+1):
+                if ( l[i] == True ):
+                    l[i*i:n:i] = [False]*len(l[i*i:n:i])
+            for i in range(2,n):
+                if ( l[i] == True ):
+                    count += 1
+        return count
+                        
+        
