@@ -1,0 +1,10 @@
+class Solution(object):
+    def isPowerOfThree(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        pi = 1
+        while pi < n:
+            pi *= 3
+        return True if pi == n else False
