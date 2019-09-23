@@ -4,35 +4,21 @@ class Solution(object):
         :type s: str
         :rtype: bool
         """
-        n = len(s)
-        t = [' ']*n
+        map = {')':'(',']':'[','}':'{'}        
+        l = len(s)
+        t = []
         i,j = 0,0
-        while i<n:
+        while i<l:
             if s[i] in "([{":
-                t[j] = s[i]
-                j += 1
-            elif s[i] == ' ':
-                pass
-            elif j<=0:
+                t.append(s[i])
+            elif t == []:
+                return False
+            elif map[s[i]] != t[-1]:
                 return False
             else:
-                if s[i] == ')':
-                    if t[j-1] != '(':
-                        return False
-                    else:
-                        j -= 1
-                if s[i] == ']':
-                    if t[j-1] != '[':
-                        return False
-                    else:
-                        j -= 1
-                if s[i] == '}':
-                    if t[j-1] != '{':
-                        return False
-                    else:
-                        j -= 1
+                t.pop()
             i += 1
-        if j == 0:
+        if t == []:
             return True
         else:  
             return False
