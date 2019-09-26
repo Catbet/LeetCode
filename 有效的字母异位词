@@ -1,0 +1,19 @@
+class Solution(object):
+    def isAnagram(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        l = [0]*26
+        for c in s:
+            index = ord(c)-ord('a')
+            l[index] += 1
+        for c in t:
+            index = ord(c)-ord('a')
+            l[index] -= 1
+        if l == [0]*26:
+            return True
+        else:
+            return False
+            
