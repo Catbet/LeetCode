@@ -1,0 +1,29 @@
+import sys
+
+class Solution(object):
+    def firstUniqChar(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        l = [-1]*26
+        for i in range(len(s)):
+            index = ord(s[i])-ord('a')
+            if l[index] == -1:
+                l[index] = i
+            else:
+                l[index] = -2
+        index = sys.maxsize
+        for n in l:
+            if 0<=n<index:
+                index = n
+        if index == sys.maxsize:
+            return -1
+        else:
+            return index
+        
+        
+                
+                
+                
+            
