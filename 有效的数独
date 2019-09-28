@@ -1,0 +1,38 @@
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool: 
+        def init(l:List[bool]):
+            for i in range(len(l)):
+                l[i] = False
+        n = 9 
+        exist = [False]*(n+1)
+        for i in range(n):
+            init(exist)
+            for j in range(n):
+                if board[i][j] != '.':
+                    num = int(board[i][j])
+                    if exist[num]:
+                        return False
+                    else:
+                        exist[num] = True      
+        for j in range(n):
+            init(exist)
+            for i in range(n):
+                if board[i][j] != '.':
+                    num = int(board[i][j])
+                    if exist[num]:
+                        return False
+                    else:
+                        exist[num] = True
+        for i in range(0,n,3):
+            for j in range(0,n,3):
+                init(exist)
+                for m in range(i,i+3):
+                    for n in range(j,j+3):
+                        if board[m][n] != '.':
+                            num = int(board[m][n])
+                            if exist[num]:
+                                return False
+                            else:
+                                exist[num] = True
+        return True
+                            
