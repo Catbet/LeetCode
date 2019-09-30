@@ -1,0 +1,21 @@
+class Solution:
+    def countAndSay(self, n: int) -> str:       
+        s = "1"
+        i = 1
+        while i<n:
+            t=[]
+            j = 0
+            while j<len(s):
+                c = s[j]
+                count = 1
+                j += 1
+                while j<len(s) and s[j] == s[j-1]:
+                    count += 1
+                    j += 1
+                t.append(count)
+                t.append(s[j-1])
+            t = [str(i) for i in t]
+            s=''.join(t)
+            i += 1
+        return s
+            
