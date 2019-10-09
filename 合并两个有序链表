@@ -1,0 +1,50 @@
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+import copy
+
+class Solution:
+    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
+        def extend(tail,p,q):
+            while p!=None:
+                tail.next = copy.copy(p)
+                p = p.next
+                tail = tail.next
+            while q!=None:
+                tail.next = copy.copy(q)
+                q = q.next
+                tail = tail.next
+        p,q = l1,l2
+        if p and q:
+            if p.val <= q.val:
+                head = copy.copy(p)
+                p = p.next
+            else:
+                head = copy.copy(q)
+                q = q.next
+            r = head
+            while p != None and q != None:
+                if p.val <= q.val:
+                    r.next = copy.copy(p)
+                    r = r.next
+                    p = p.next
+                else:
+                    r.next = copy.copy(q)
+                    r = r.next
+                    q = q.next
+            extend(r,p,q)
+        elif p and not q:
+            head = copy.copy(p)
+            p = p.next
+            extend(head,p,q)
+        elif q and not p:
+            head = copy.copy(q)
+            q = q.next
+            extend(head,p,q)
+        else:
+            return None
+        return head
+                
+            
