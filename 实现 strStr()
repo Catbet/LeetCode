@@ -1,0 +1,41 @@
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        def calc(s):
+            next = [-1]*len(s)
+            if len(s)>1:
+                next[1] = 0
+                i, j = 0, 1
+                while j+1<len(s):
+                    if s[j] == s[i]:
+                        next[j+1] = i+1
+                        i += 1
+                        j += 1
+                    else:
+                        i = next[i]
+                        if i == -1:
+                            next[j+1] = 0
+                            j += 1
+                            i = 0
+            return next
+                        
+        if not needle:  return 0
+        elif not haystack:  return -1
+        next = calc(needle)    
+        i, j = 0, 0
+        while i<len(haystack) and j<len(needle):
+            if haystack[i] == needle[j]:
+                i += 1
+                j += 1
+            else:
+                j = next[j]
+                if j == -1:
+                    i += 1
+                    j = 0
+        print(next)
+        if j == len(needle):
+            return i-len(needle)
+        else:
+            return -1
+
+s=Solution()
+print(s.strStr("aabaaabaaac","aabaaac"))
