@@ -1,0 +1,26 @@
+class Solution:
+    def myAtoi(self, str: str) -> int:
+        if not str: return 0
+        i = 0
+        while i<len(str) and str[i] == ' ': i += 1
+        if i == len(str):   return 0
+        if str[i] == '-':
+            sign = -1
+            i += 1
+        elif str[i] == '+':
+            sign = 1
+            i += 1
+        elif str[i].isdigit():
+            sign = 1
+        else:
+            return 0
+        s = ""
+        while i<len(str) and str[i].isdigit():
+            s += str[i]
+            i += 1
+        if s == "": return 0
+        result = sign*int(s)
+        result = min(2**31-1,result)
+        result = max(-2**31,result)
+        return result
+                
