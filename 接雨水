@@ -1,0 +1,19 @@
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        length = len(height)
+        left = [0]*length
+        right = [0]*length
+        big = 0
+        for i in range(0,length):
+            left[i] = big
+            big = max(big,height[i])
+        big = 0
+        for i in range(length-1,-1,-1):
+            right[i] = big
+            big = max(big,height[i])
+        total = 0
+        for i in range(0,length):
+            top = min(left[i],right[i])
+            if top > height[i]:
+                total += top-height[i]
+        return total
