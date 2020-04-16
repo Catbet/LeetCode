@@ -1,0 +1,36 @@
+class Solution:
+    def openLock(self, deadends: List[str], target: str) -> int:
+        def rotate(num,pos,direct):
+            if direct == '+':
+                if num[pos] == '9':
+                    c = '0'
+                else:
+                    c = str(int(num[pos])+1)
+            elif direct == '-':
+                if num[pos] == '0':
+                    c = '9'
+                else:
+                    c = str(int(num[pos])-1)
+            else:
+                return num
+            return num[:pos]+c+num[pos+1:]
+        digits = 4
+        dead = set(deadends)
+        if '0000' in deadends:
+            return -1
+        visited = {'0000'}
+        queue = [('0000',0)]
+        while queue:
+            num,step = queue.pop(0)
+            for pos in range(digits):
+                for direct in {'+','-'}:
+                    newNum = rotate(num,pos,direct)
+                    if newNum == target:
+                        return step+1
+                    elif newNum in visited:
+                        continue
+                    elif newNum not in dead:
+                        queue.append((newNum,step+1))
+                    visited.add(newNum)
+        else:
+            return -1
