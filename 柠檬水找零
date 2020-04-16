@@ -1,0 +1,17 @@
+class Solution:
+    def lemonadeChange(self, bills: List[int]) -> bool:
+        cash = {5:0,10:0,20:0}
+        for n in bills:
+            cash[n] += 1
+            if n == 10:
+                cash[5] -= 1
+                if cash[5] < 0: return False
+            elif n == 20:
+                if cash[10] > 0:
+                    cash[10] -= 1
+                    cash[5] -= 1
+                else:
+                    cash[5] -= 3
+                if cash[5] < 0: return False
+        return True
+
