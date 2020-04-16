@@ -1,0 +1,42 @@
+import copy
+
+class Solution:
+    def minFlips(self, mat: List[List[int]]) -> int:
+        def flip(status,row,col):
+            result = copy.deepcopy(status)
+            pos = {(0,0),(-1,0),(0,1),(1,0),(0,-1)}
+            for x,y in pos:
+                if 0 <= row+x < self.rows and 0 <= col+y < self.cols:
+                    result[row+x][col+y] = 0 if result[row+x][col+y] == 1 else 1
+            return result
+        def isZero(matrix):
+            for row in matrix:
+                for n in row:
+                    if n != 0:   return False
+            return True
+        def toTuple(matrix):
+            temp = []
+            for row in matrix:
+                for n in row:
+                    temp.append(n)
+            return tuple(temp)
+        if isZero(mat): return 0
+        self.rows = len(mat)
+        self.cols = len(mat[0])
+        queue = [(mat,0)]
+        visited = {toTuple(mat)}
+        while queue:
+            status,step = queue.pop(0)
+            for i in range(self.rows):
+                for j in range(self.cols):
+                    newStatus = flip(status,i,j)
+                    if isZero(newStatus):   
+                        return step+1
+                    else:
+                        temp = toTuple(newStatus)
+                        if temp not in visited:
+                            queue.append((newStatus,step+1))
+                            visited.add(temp)
+        else:
+            return -1
+            
