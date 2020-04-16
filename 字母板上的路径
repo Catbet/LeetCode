@@ -7,16 +7,12 @@ class Solution:
             row = index // 5
             col = index % 5
             if c == 'z':
-                for _ in range(abs(col-n)):
-                    path.append('L' if col < n else 'R')
-                for _ in range(abs(row-m)):
-                    path.append('U' if row < m else 'D')
-                path.append('!')
+                path += ('L' if col < n else 'R') * abs(col-n)
+                path += ('U' if row < m else 'D') * abs(row-m)
+                path += '!'
             else:
-                for _ in range(abs(row-m)):
-                    path.append('U' if row < m else 'D')
-                for _ in range(abs(col-n)):
-                    path.append('L' if col < n else 'R')
-                path.append('!')
+                path += ('U' if row < m else 'D') * abs(row-m)
+                path += ('L' if col < n else 'R') * abs(col-n)
+                path += '!'
             m,n = row,col
         return str.join('',path)
