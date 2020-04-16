@@ -1,0 +1,34 @@
+class Solution:
+    def readBinaryWatch(self, num: int) -> List[str]:
+        def calTime(seq):
+            hour,minute = 0,0
+            base = 1
+            for i in range(6):
+                minute += (seq & 1) * base
+                base <<= 1
+                seq >>= 1
+            if minute >= 60:    return None
+            base = 1
+            for _ in range(4):
+                hour +=  (seq & 1) * base
+                base <<= 1
+                seq >>= 1
+            if hour >= 12:  return None
+            s = '%d:%02d' % (hour,minute)
+            return s
+        def back(seq,pos,lights):
+            if lights == 0:
+                temp = calTime(seq)
+                if temp:
+                    self.times.append(temp)
+                return
+            mask = 1 << pos
+            if self.digits-(pos+1) >= lights:
+                back(seq,pos+1,lights)
+            back(seq|mask,pos+1,lights-1)   
+        if num > 8: return []   
+        self.digits = 10
+        self.times = []
+        back(0,0,num)
+        return self.times
+            
