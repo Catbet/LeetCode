@@ -1,0 +1,22 @@
+class Solution:
+    def alphabetBoardPath(self, target: str) -> str:
+        m,n = 0,0
+        path = []
+        for c in target:
+            index = ord(c)-97
+            row = index // 5
+            col = index % 5
+            if c == 'z':
+                for _ in range(abs(col-n)):
+                    path.append('L' if col < n else 'R')
+                for _ in range(abs(row-m)):
+                    path.append('U' if row < m else 'D')
+                path.append('!')
+            else:
+                for _ in range(abs(row-m)):
+                    path.append('U' if row < m else 'D')
+                for _ in range(abs(col-n)):
+                    path.append('L' if col < n else 'R')
+                path.append('!')
+            m,n = row,col
+        return str.join('',path)
