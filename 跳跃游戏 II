@@ -1,0 +1,10 @@
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        length = len(nums)
+        dp = [0] * length
+        best = 0
+        for i in range(length):
+            for j in range(best+1,min(i+nums[i]+1,length)):
+                dp[j] = dp[i] + 1
+            best = max(best,i + nums[i])
+        return dp[-1]
